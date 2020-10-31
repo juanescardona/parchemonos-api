@@ -1,33 +1,45 @@
-const EXPERIENCE_REPO = require('./../repository/experienceRepository')
+const ExperienceModel = require('./../models/experienceModel')
 
-const getAll = () => {
-    return { status: 1, 'list': EXPERIENCE_REPO}
+const getAll = async () => {
+    try{
+        const experiences = await ExperienceModel.find()
+        return { status: 1, 'list': experiences}
+    }catch{
+        throw(error)
+    }
 }
 
-const findById = (id) => {
-    //Se pone abajo triple igual para que compare si es del mismo tipo el dato id
-    const experience = EXPERIENCE_REPO.find(item => item.id === id)
-    if(experience == undefined) throw ('experience not found')
-    return { status: 1, experience} //'experience': experience
+const findById = async (id) => {
+    try{
+        const experience = await ExperienceModel.findById(id)
+        if(!experience) throw { status: 404, message: 'experience not found'}
+        return { status: 1, experience} //'experience': experience
+    }catch (error){
+        throw {status: 500, message: error}
+    }
 }
 
-const getRanking = () => {
-    const experienceSorted = EXPERIENCE_REPO.sort((a, b) => {
-        if (a.score < b.score) return 1
-        if (a.score > b.score) return -1
-        return 0
-    })
-    const ranking = experienceSorted.slice(0, 5)
-    return {status: 1, ranking}
+const getRanking = async () => {
+    try{
+        const ranking = await ExperienceModel.find().sort({score: 'desc'}).limit(5)
+        return {status: 1, ranking }
+    }catch{
+        throw(error)
+    }
 }
 
-const makeRate = (id, rate, idUser) => {
-    
+const insert = async (experienceData) => {
+    try{
+        const experience = await ExperienceModel(experienceData).save()
+        return { status: 1, experience }
+    }catch(error){
+        throw(error)
+    }
 }
 
 module.exports = {
     getAll,
     findById,
     getRanking,
-    makeRate
+    insert
 }

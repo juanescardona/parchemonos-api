@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const { all, ranking, detail, rate } = require('./../controllers/experienceCtrl')
+const { all, ranking, detail, create } = require('./../controllers/experienceCtrl')
 
 
 router.get('/', all) //obtener todas las experiencias
 router.get('/ranking', ranking)
 router.get('/detail/:id', detail)
-router.post('/rate/:id', rate)
+router.post('/', create)
 
 module.exports = router
