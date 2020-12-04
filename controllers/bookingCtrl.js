@@ -4,7 +4,8 @@ const createBooking = async (req, res) =>{
     try {
         const idExperience = req.params.id
         const bookingData = req.body
-        const response = await create(bookingData, idExperience)
+        const userId = req.payload.idUser
+        const response = await create(bookingData, idExperience, userId)
         res.json(response)
     } catch (error) {
         res.status(500).send(error)
@@ -13,8 +14,10 @@ const createBooking = async (req, res) =>{
 
 const rate = async (req,res) => {
     try {
-        const {rate, _id} = req.body
-        const response = await makeRate(rate, _id)
+        const idExperience = req.params.id
+        const rateData = req.body
+        const userId = req.payload.idUser
+        const response = await makeRate(rateData, idExperience, userId)
         res.json(response)
     } catch (error) {
         res.status(500).send(error)
