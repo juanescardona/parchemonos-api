@@ -17,9 +17,6 @@ app.use('/experiences', experiencesRoutes)
 const usersRoutes = require('./routes/users')
 app.use('/users', usersRoutes)
 
-//localhost:5000/experiences/ranking
-//localhost:5000/experiences/rate
-
 const bookingRoutes = require('./routes/booking')
 app.use('/booking', bookingRoutes)
 

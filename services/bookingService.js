@@ -11,11 +11,11 @@ const create = async (bookingData, idExperience, idUser) => {
     }
 }
 
-const makeRate = async (rateData, idExperience, idUser) => {
-    try{
-        const rateBooking = await BookingModel.updateOne({experience_id: idExperience, user_id: idUser},{rate: rateData.rate})
+const makeRate = async (rateData, idBooking, idUser) => {
+    try{        
+        const rateBooking = await BookingModel.updateOne({_id : idBooking},{rate: rateData.rate})
         return { status: 1, rateBooking }
-    }catch{
+    }catch(error){
         throw(error)
     }
 }

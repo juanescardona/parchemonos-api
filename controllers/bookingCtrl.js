@@ -14,10 +14,10 @@ const createBooking = async (req, res) =>{
 
 const rate = async (req,res) => {
     try {
-        const idExperience = req.params.id
+        const idBooking = req.params.id
         const rateData = req.body
         const userId = req.payload.idUser
-        const response = await makeRate(rateData, idExperience, userId)
+        const response = await makeRate(rateData, idBooking, userId)
         res.json(response)
     } catch (error) {
         res.status(500).send(error)
